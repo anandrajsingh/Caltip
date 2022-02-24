@@ -44,5 +44,32 @@ public class MainActivity extends AppCompatActivity {
         txtTipPerPerson = findViewById(R.id.txtTipPerPerson);
 
         txtTipOther.setEnabled(false);
+
+        rdoGroupTips.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                if (checkedId == R.id.radioFifteen || checkedId == R.id.radioTwenty){
+                    txtTipOther.setEnabled(false);
+                    btnCalculate.setEnabled(txtAmount.getText().length() > 0 && txtPeople.getText().length() > 0);
+                }
+                if (checkedId == R.id.radioOther) {
+                    txtTipOther.setEnabled(true);
+                    txtTipOther.requestFocus();
+
+                    btnCalculate.setEnabled(txtAmount.getText().length() > 0 && txtPeople.getText().length() > 0
+                        && txtTipOther.getText().length() > 0);
+                }
+                radioCheckedId = checkedId;
+            }
+        });
+
+        txtPeople.setOnKeyListener(mKeyListener);
+        txtAmount.setOnKeyListener(mKeyListener);
+        txtTipOther.setOnKeyListener(mKeyListener);
+
+        btnCalculate.setOnClickListener(mClickListener);
+        btnReset.setOnClickListener(mClickListener);
+
+
     }
 }
